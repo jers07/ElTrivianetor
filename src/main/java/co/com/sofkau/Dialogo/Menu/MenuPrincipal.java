@@ -2,6 +2,7 @@ package co.com.sofkau.Dialogo.Menu;
 
 import co.com.sofkau.Modelos.Jugador;
 import co.com.sofkau.integration.database.Repositorios.PreguntasRepositorio;
+import co.com.sofkau.integration.database.Repositorios.RondaRepositorio;
 import co.com.sofkau.util.CommonOperacion.MenuUtils;
 import co.com.sofkau.util.CommonOperacion.PreguntasUtil;
 
@@ -30,14 +31,14 @@ public class MenuPrincipal {
                 case 1:
                     System.out.print(MSN_INFORMACION_2);
                     jugadorActual.setNombreJugador(MenuUtils.preguntarStringAlUsuario(MSN_INFORMACION_1));
-                    PreguntasUtil.registrarDificultadesDisponibles(PreguntasRepositorio.consultarPreguntas());
 
                     System.out.println("Iniciando el juego...");
+                    RondaRepositorio.consultarRondas();
 
                     String respuestaUsuario = "";
                     System.out.println("Tu respuesta fue: " + respuestaUsuario);
                     break;
-                case 2:
+                case 0:
                     exit = 0;
                     System.out.println("¡Gracias por jugar!");
                     break;

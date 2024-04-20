@@ -1,9 +1,13 @@
 package co.com.sofkau.Modelos;
 
+import java.util.HashMap;
+
 public class Ronda {
     private int idRonda;
     private  String premioConseguir;
     private int numRonda;
+
+    public static HashMap<Integer, Ronda> rondaHashMap = new HashMap<>();
 
     public Ronda() {
     }
@@ -37,4 +41,6 @@ public class Ronda {
     public void setNumRonda(int numRonda) {
         this.numRonda = numRonda;
     }
+
+
 }

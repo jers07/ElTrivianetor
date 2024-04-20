@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class RondaRepositorio {
     private static MySqlOperation mySqlOperation = ConexionDatabase.getMySqlOperation();
 
-    public static HashMap<Integer, Ronda> consultarRondas() {
+    public static void consultarRondas() {
         HashMap<Integer, Ronda> rondaHashMap = new HashMap<>();
         String query = "SELECT * FROM ronda";
 
@@ -35,7 +35,6 @@ public class RondaRepositorio {
         } catch ( SQLException e) {
             throw new RuntimeException(e);
         }
-
-        return rondaHashMap;
+    Ronda.rondaHashMap = rondaHashMap;
     }
 }
