@@ -1,5 +1,6 @@
 package co.com.sofkau.integration.database;
 
+
 import co.com.sofkau.integration.database.mysql.MySqlOperation;
 
 import java.sql.Connection;
@@ -12,7 +13,7 @@ public class ConexionDatabase {
     //static Dotenv dotenv = Dotenv.configure().load();
 
     private static final String server = "localhost";  //dotenv.get("database.server");
-    private static final String databaseName = "biblioteca_pinguinera_Daniel"; //dotenv.get("database.databaseName");
+    private static final String databaseName = "eltrivianeitor3000"; //dotenv.get("database.databaseName");
     private static final String user = "root"; //dotenv.get("database.user");
     private static final String password = "123456"; //dotenv.get("database.password");
 
