@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+
 public class RondaRepositorio {
     private static MySqlOperation mySqlOperation = ConexionDatabase.getMySqlOperation();
 
@@ -27,9 +28,7 @@ public class RondaRepositorio {
                 String premioConseguir = resultSet.getString("premioConseguir");
                 int numRonda = resultSet.getInt("numRonda");
 
-
                 Ronda ronda = new Ronda(idRonda,premioConseguir,numRonda);
-
 
                 rondaHashMap.put(idRonda, ronda);
             }

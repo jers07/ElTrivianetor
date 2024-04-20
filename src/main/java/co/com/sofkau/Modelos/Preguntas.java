@@ -1,5 +1,7 @@
 package co.com.sofkau.Modelos;
 
+import java.util.HashMap;
+
 public class Preguntas {
     private int idPregunta ;
     private String nivelDificultad;
@@ -10,6 +12,8 @@ public class Preguntas {
     private String opcion2;
     private String opcion3;
     private String opcionCorrecta;
+
+    public static HashMap<Integer, String> dificultadMap;
 
     public Preguntas() {
     }
@@ -96,5 +100,13 @@ public class Preguntas {
 
     public void setOpcionCorrecta(String opcionCorrecta) {
         this.opcionCorrecta = opcionCorrecta;
+    }
+
+    public HashMap<Integer, String> getDificultadMap() {
+        return dificultadMap;
+    }
+
+    public void setDificultadMap(HashMap<Integer, String> dificultadMap) {
+        this.dificultadMap = dificultadMap;
     }
 }

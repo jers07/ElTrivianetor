@@ -12,6 +12,9 @@ public class Jugador {
         this.nombreJugador = nombreJugador;
     }
 
+    public Jugador(int idJugador, String nombreJugador) {
+    }
+
     public int getIdJugador() {
         return idJugador;
     }
