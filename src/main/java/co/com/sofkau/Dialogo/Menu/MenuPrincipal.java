@@ -1,8 +1,11 @@
 package co.com.sofkau.Dialogo.Menu;
 
+import co.com.sofkau.Modelos.Historial;
 import co.com.sofkau.Modelos.Jugador;
+import co.com.sofkau.integration.database.Repositorios.JugadorRepositorio;
 import co.com.sofkau.integration.database.Repositorios.PreguntasRepositorio;
 import co.com.sofkau.integration.database.Repositorios.RondaRepositorio;
+import co.com.sofkau.util.CommonOperacion.JugadorUtil;
 import co.com.sofkau.util.CommonOperacion.MenuUtils;
 import co.com.sofkau.util.CommonOperacion.PreguntasUtil;
 
@@ -14,10 +17,9 @@ import static co.com.sofkau.Dialogo.ConstantesDialogo.*;
 public class MenuPrincipal {
 
     public static Jugador jugadorActual = new Jugador();
-
+    public static Historial historialActual = new Historial();
     public static void iniciarJuego() throws SQLException {
 
-        Scanner scanner = new Scanner(System.in);
         int exit = -1;
 
         while (exit == -1) {
@@ -30,13 +32,24 @@ public class MenuPrincipal {
             switch (option) {
                 case 1:
                     System.out.print(MSN_INFORMACION_2);
-                    jugadorActual.setNombreJugador(MenuUtils.preguntarStringAlUsuario(MSN_INFORMACION_1));
+                    String nombreJugador = MenuUtils.preguntarStringAlUsuario(MSN_INFORMACION_1);
+                    String correo = MenuUtils.preguntarStringAlUsuario(MSN_INFORMACION_3);
+
+                    jugadorActual.setNombreJugador(nombreJugador);
+                    jugadorActual.setCorreo(correo);
+                    JugadorRepositorio.crearJugador(jugadorActual);
+
+                    int idJugador = JugadorUtil.buscarJugadorPorCorreo(JugadorRepositorio.consultarJugadores(), correo).getIdJugador();
+
+                    historialActual.setNombreJugador(nombreJugador);
+                    historialActual.setJugadorIdJugador(idJugador);
 
                     System.out.println("Iniciando el juego...");
                     RondaRepositorio.consultarRondas();
 
                     String respuestaUsuario = "";
                     System.out.println("Tu respuesta fue: " + respuestaUsuario);
+                    MenuContinuar.continuarJuego(1);
                     break;
                 case 0:
                     exit = 0;

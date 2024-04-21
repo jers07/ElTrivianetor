@@ -3,13 +3,15 @@ package co.com.sofkau.Modelos;
 public class Jugador {
     private int idJugador;
     private String nombreJugador;
+    private String correo;
 
     public Jugador() {
     }
 
-
-    public Jugador(String nombreJugador) {
+    public Jugador(int idJugador, String nombreJugador, String correo) {
+        this.idJugador = idJugador;
         this.nombreJugador = nombreJugador;
+        this.correo = correo;
     }
 
     public Jugador(int idJugador, String nombreJugador) {
@@ -29,5 +31,13 @@ public class Jugador {
 
     public void setNombreJugador(String nombreJugador) {
         this.nombreJugador = nombreJugador;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 }

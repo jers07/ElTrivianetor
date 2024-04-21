@@ -4,6 +4,7 @@ import co.com.sofkau.Modelos.Ronda;
 import co.com.sofkau.integration.database.Repositorios.RondaRepositorio;
 import co.com.sofkau.util.CommonOperacion.RondaUtils;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -11,7 +12,7 @@ import java.util.Scanner;
 public class MenuContinuar {
 
 
-    public static void continuarJuego(int numRonda) {
+    public static void continuarJuego(int numRonda) throws SQLException {
         Ronda ronda = new Ronda();
 
         Scanner scanner = new Scanner(System.in);
@@ -34,13 +35,10 @@ public class MenuContinuar {
 
             int opcion = scanner.nextInt();
             if (opcion == 1) {
-                // Continuar juego
-                // Llamar a la función que presente la próxima pregunta
-                // Por ejemplo: MenuRonda.presentarPregunta(numRonda + 1);
+                MenuRonda.presentarPregunta(premioProximaRonda);
+
             } else if (opcion == 2) {
-                // Retirarse con premios
-                // Llamar a la función que muestre el mensaje de retiro y el premio acumulado
-                // Por ejemplo: MenuJuegoTerminado.mostrarMensajeRetiro(premioAcumulado);
+                MenuJuegoTerminado.jugadorRetirado(MenuPrincipal.historialActual.getPuntajeFinal());
             } else {
                 System.out.println("Opción no válida. Por favor, ingrese 1 para continuar o 2 para retirarse.");
             }

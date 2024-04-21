@@ -15,13 +15,14 @@ public class JugadorRepositorio {
     private static MySqlOperation mySqlOperation = ConexionDatabase.getMySqlOperation();
 
     public static void crearJugador(Jugador jugador) {
-        String query = String.format("INSERT INTO jugador (nombreJugador) VALUES ('%s')",
-                jugador.getNombreJugador());
+        String query = String.format("INSERT INTO jugador (nombreJugador,correo) VALUES ('%s', '%s')",
+                jugador.getNombreJugador(),
+                jugador.getCorreo());
         IngresoQuery.ejecutarIngresoQuery(query);
     }
 
-    public static HashMap<Integer, Jugador> consultarJugadores() {
-        HashMap<Integer, Jugador> jugadorHashMap = new HashMap<>();
+    public static HashMap<String, Jugador> consultarJugadores() {
+        HashMap<String, Jugador> jugadorHashMap = new HashMap<>();
         String query = "SELECT * FROM jugador";
 
         IngresoQuery.ejecutarConsultaQuery(query);
@@ -32,10 +33,11 @@ public class JugadorRepositorio {
 
                 int idJugador = resultSet.getInt("idjugador");
                 String nombreJugador = resultSet.getString("nombreJugador");
+                String correo = resultSet.getString("correo");
 
-                Jugador jugador = new Jugador(idJugador,nombreJugador);
+                Jugador jugador = new Jugador(idJugador,nombreJugador,correo);
 
-                jugadorHashMap.put(idJugador, jugador);
+                jugadorHashMap.put(correo, jugador);
             }
         } catch ( SQLException e) {
             throw new RuntimeException(e);

@@ -15,7 +15,7 @@ public class MenuRonda {
     private static HashMap<Integer, String> dificultadMap = PreguntasUtil.registrarDificultadesDisponibles();
 
 
-    public static void presentarPregunta() throws SQLException {
+    public static void presentarPregunta(String premioRonda) throws SQLException {
 
         HashMap<Integer, Preguntas> preguntas = PreguntasRepositorio.consultarPreguntas();
         String nivelDificultad = PreguntasUtil.SeleccionarDificultad(numRonda, dificultadMap);
@@ -35,17 +35,24 @@ public class MenuRonda {
             PreguntasUtil.imprimirOpciones(opciones);
 
             int respuestaUsuario = MenuUtils.preguntarNumeroUsuario();
-
+            int premioRondaIntegerSumado = MenuPrincipal.historialActual.getPuntajeFinal() + MenuUtils.textoInteger(premioRonda);
             PreguntasUtil.checarRespuestaCorrectaIncorrecta(respuestaUsuario, preguntaSeleccionada, opciones);
 
             if (respuestaUsuario == PreguntasUtil.checarRespuestaCorrectaIncorrecta(respuestaUsuario, preguntaSeleccionada, opciones)) {
                 System.out.println("¡Respuesta correcta!");
+                if (MenuUtils.textoInteger(premioRonda) != 0) {
+                    MenuPrincipal.historialActual.setPuntajeFinal(premioRondaIntegerSumado);
+                }
                 if (numRonda < 5) {
                     numRonda++;
                 }
+                else {
+                    MenuJuegoTerminado.juegoGanado(premioRondaIntegerSumado, premioRonda);
+                }
+                MenuContinuar.continuarJuego(numRonda);
             } else {
                 System.out.println("Respuesta incorrecta. ¡Has perdido!");
-                // Llamar a la clase MenuJuegoTerminado
+                MenuJuegoTerminado.jugadorPerdio();
             }
         }
     }

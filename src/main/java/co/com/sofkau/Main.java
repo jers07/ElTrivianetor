@@ -26,13 +26,8 @@ import java.sql.SQLException;
 public class Main {
     public static void main(String[] args) throws SQLException {
         ConexionDatabase.openConnection();
-        //MenuPrincipal.iniciarJuego();
-        //MenuRonda.presentarPregunta();
-        RondaRepositorio.consultarRondas();
-        //System.out.println(Ronda.rondaHashMap.containsKey(2));
+        MenuPrincipal.iniciarJuego();
 
-        System.out.println();
-        MenuContinuar.continuarJuego(1);
 
 
 

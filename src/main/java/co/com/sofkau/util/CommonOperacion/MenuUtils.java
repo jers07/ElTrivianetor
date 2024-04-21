@@ -2,29 +2,13 @@ package co.com.sofkau.util.CommonOperacion;
 
 import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static co.com.sofkau.Dialogo.ConstantesDialogo.MSN_PRINCIPAL_1;
 
 
 public class MenuUtils {
-
-    /*public static int preguntarNumeroUsuario2() {
-        Scanner scanner = new Scanner(System.in);
-        int opcion = -1;
-        System.out.println(MSN_PRINCIPAL_1);
-
-        String input = scanner.nextLine();
-
-        if (input.matches("[0-9]+")) {
-            opcion = Integer.parseInt(input);
-
-        } else {
-            System.out.println("Ingrese un número válido.");
-        }
-
-        return opcion;
-    }*/
-
 
     public static String preguntarStringAlUsuario(String mensaje) throws SQLException {
         Scanner scanner = new Scanner(System.in);
@@ -50,5 +34,28 @@ public class MenuUtils {
         }
         return option;
     }
+
+    public static int textoInteger(String texto) {
+        // Patrón de expresión regular para buscar un número en la cadena
+        Pattern pattern = Pattern.compile("\\d+");
+
+        // Crear un objeto Matcher para buscar coincidencias con el patrón en la cadena
+        Matcher matcher = pattern.matcher(texto);
+
+        // Verificar si se encontró un número en la cadena
+        if (matcher.find()) {
+            // Obtener el número encontrado como una cadena de texto
+            String numeroComoTexto = matcher.group();
+
+            // Convertir la cadena de texto a un entero
+            return Integer.parseInt(numeroComoTexto);
+        } else {
+            // En caso de no encontrar un número, retornar 0 o lanzar una excepción según lo requieras
+            // Aquí simplemente retornamos 0 como valor por defecto
+            return 0;
+        }
+    }
+
+
 
 }
