@@ -1,57 +1,55 @@
 package co.com.sofkau.Dialogo.Menu;
 
 import co.com.sofkau.Modelos.Preguntas;
-import co.com.sofkau.integration.database.Repositorios.PreguntasRepositorio;
+import co.com.sofkau.util.CommonOperacion.HistorialUtil;
 import co.com.sofkau.util.CommonOperacion.MenuUtils;
 import co.com.sofkau.util.CommonOperacion.PreguntasUtil;
+import co.com.sofkau.util.CommonOperacion.RondaUtils;
 
 import java.sql.SQLException;
 import java.util.*;
 
+import static co.com.sofkau.Dialogo.ConstantesDialogo.*;
+
 public class MenuRonda {
-
-
-    private static int numRonda = 1;
-    private static HashMap<Integer, String> dificultadMap = PreguntasUtil.registrarDificultadesDisponibles();
 
 
     public static void presentarPregunta(String premioRonda) throws SQLException {
 
-        HashMap<Integer, Preguntas> preguntas = PreguntasRepositorio.consultarPreguntas();
-        String nivelDificultad = PreguntasUtil.SeleccionarDificultad(numRonda, dificultadMap);
-        Map<String, List<Preguntas>> preguntasFiltradas = PreguntasUtil.filtrarPorDificultad(preguntas, nivelDificultad);
+        Map<String, List<Preguntas>> preguntasFiltradas = PreguntasUtil.filtrarPorDificultad(PreguntasUtil.preguntas, RondaUtils.nivelDificultad);
 
+        if (preguntasFiltradas.containsKey(RondaUtils.nivelDificultad)) {
 
-        if (preguntasFiltradas.containsKey(nivelDificultad)) {
-
-            List<Preguntas> preguntasDificultadActual = preguntasFiltradas.get(nivelDificultad);
+            List<Preguntas> preguntasDificultadActual = preguntasFiltradas.get(RondaUtils.nivelDificultad);
             Preguntas preguntaSeleccionada = preguntasDificultadActual.get((int) (Math.random() * preguntasDificultadActual.size()));
             List<String> opciones = PreguntasUtil.mezclarOpciones(preguntaSeleccionada);
 
-            System.out.println("Pregunta:");
+            System.out.println(MSN_UTIL_1);
+            System.out.println(MSN_RONDA_1);
             System.out.println(preguntaSeleccionada.getTextoPregunta());
-            System.out.println("Opciones:");
+            System.out.println(MSN_RONDA_2);
 
             PreguntasUtil.imprimirOpciones(opciones);
 
-            int respuestaUsuario = MenuUtils.preguntarNumeroUsuario();
-            int premioRondaIntegerSumado = MenuPrincipal.historialActual.getPuntajeFinal() + MenuUtils.textoInteger(premioRonda);
+            int respuestaUsuario = MenuUtils.preguntarNumeroUsuario(false,0);
+
+            int premioRondaIntegerSumado = HistorialUtil.historialActual.getPuntajeFinal() + MenuUtils.textoInteger(premioRonda);
             PreguntasUtil.checarRespuestaCorrectaIncorrecta(respuestaUsuario, preguntaSeleccionada, opciones);
 
             if (respuestaUsuario == PreguntasUtil.checarRespuestaCorrectaIncorrecta(respuestaUsuario, preguntaSeleccionada, opciones)) {
-                System.out.println("¡Respuesta correcta!");
+                System.out.println(MSN_RONDA_3);
                 if (MenuUtils.textoInteger(premioRonda) != 0) {
-                    MenuPrincipal.historialActual.setPuntajeFinal(premioRondaIntegerSumado);
+                    HistorialUtil.historialActual.setPuntajeFinal(premioRondaIntegerSumado);
                 }
-                if (numRonda < 5) {
-                    numRonda++;
+                if (RondaUtils.numRonda < 5) {
+                    RondaUtils.numRonda++;
                 }
                 else {
                     MenuJuegoTerminado.juegoGanado(premioRondaIntegerSumado, premioRonda);
                 }
-                MenuContinuar.continuarJuego(numRonda);
+                MenuContinuar.continuarJuego(RondaUtils.numRonda);
             } else {
-                System.out.println("Respuesta incorrecta. ¡Has perdido!");
+                System.out.println(MSN_RONDA_4);
                 MenuJuegoTerminado.jugadorPerdio();
             }
         }

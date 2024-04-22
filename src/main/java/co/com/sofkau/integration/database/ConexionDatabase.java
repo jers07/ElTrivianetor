@@ -12,10 +12,10 @@ public class ConexionDatabase {
     //Instanciar objeto que me permite leer desde archivo .env
     //static Dotenv dotenv = Dotenv.configure().load();
 
-    private static final String server = "localhost";  //dotenv.get("database.server");
-    private static final String databaseName = "eltrivianeitor3000"; //dotenv.get("database.databaseName");
-    private static final String user = "root"; //dotenv.get("database.user");
-    private static final String password = "123456"; //dotenv.get("database.password");
+    private static final String server = "localhost";
+    private static final String databaseName = "eltrivianeitor3000";
+    private static final String user = "root";
+    private static final String password = "123456";
 
     private static final MySqlOperation mySqlOperation = new MySqlOperation();
 
@@ -28,7 +28,6 @@ public class ConexionDatabase {
         mySqlOperation.setDataBaseName(databaseName);
         mySqlOperation.setUser(user);
         mySqlOperation.setPassword(password);
-        System.out.println("Se conecta a la BD"+databaseName);
     }
 
     public static Connection getConnection (){

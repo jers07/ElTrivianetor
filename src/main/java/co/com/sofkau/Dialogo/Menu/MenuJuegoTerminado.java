@@ -1,55 +1,65 @@
 package co.com.sofkau.Dialogo.Menu;
 
-import co.com.sofkau.integration.database.Repositorios.HistorialRepositorio;
+import co.com.sofkau.integration.database.ConexionDatabase;
+
 import co.com.sofkau.util.CommonOperacion.HistorialUtil;
+import co.com.sofkau.util.CommonOperacion.MenuUtils;
 
 import java.sql.SQLException;
-import java.util.Scanner;
+
+
+import static co.com.sofkau.Dialogo.ConstantesDialogo.*;
+import static co.com.sofkau.Dialogo.RazonTerminoJuego.*;
 
 public class MenuJuegoTerminado {
 
     public static void juegoGanado(int premioNumero, String premioTexto) throws SQLException {
-        System.out.println("¡Felicidades! Has completado todas las rondas y has ganado el juego.");
-        System.out.println("tu resultado es " + premioNumero + "$ y claro no olvidemos tu flameante " + premioTexto);
-        HistorialUtil.TerminarSubirHistorial(premioNumero, "Jugador Ganador");
+        System.out.println(MSN_UTIL_1);
+        System.out.println(MSN_UTIL_1);
+        System.out.println(MSN_FINAL_1);
+        System.out.println(MSN_FINAL_2 + premioNumero + MSN_FINAL_3 + premioTexto);
+        HistorialUtil.TerminarSubirHistorial(premioNumero, TIPO_UNO.getvalue());
         mostrarOpciones();
     }
 
 
-
     public static void jugadorRetirado(int premioNumero) throws SQLException {
-        System.out.println("Has decidido retirarte y quedarte con tus premios. ¡Gracias por participar!");
-        System.out.println("Has decidido el camino de los cobardes");
-        System.out.println("tu resultado es " + premioNumero + "$");
-        HistorialUtil.TerminarSubirHistorial(premioNumero, "Jugador Retirado");
+        System.out.println(MSN_UTIL_1);
+        System.out.println(MSN_UTIL_1);
+        System.out.println(MSN_FINAL_4);
+        System.out.println(MSN_FINAL_5);
+        System.out.println(MSN_FINAL_2 + premioNumero + MSN_FINAL_10);
+        HistorialUtil.TerminarSubirHistorial(premioNumero, TIPO_DOS.getvalue());
         mostrarOpciones();
     }
 
     public static void jugadorPerdio() throws SQLException {
-        System.out.println("Lo siento, has perdido todos tus premios al fallar una pregunta.");
-        System.out.println("Es mejor haber tenido y perdido que no haber tenido nada ");
-        System.out.println("                                                        --Ricardo Arjona");
-        HistorialUtil.TerminarSubirHistorial(0, "Jugador Perdio");
+        System.out.println(MSN_UTIL_1);
+        System.out.println(MSN_UTIL_1);
+        System.out.println(MSN_FINAL_6);
+        System.out.println(MSN_FINAL_7);
+        HistorialUtil.TerminarSubirHistorial(0, TIPO_TRES.getvalue());
         mostrarOpciones();
     }
 
     private static void mostrarOpciones() throws SQLException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("¿Qué deseas hacer?");
-        System.out.println("1. Ir al menú principal");
-        System.out.println("2. Cerrar el juego");
 
-        int opcion = scanner.nextInt();
+        System.out.println(MSN_FINAL_9);
+        System.out.println(MSN_FINAL_8);
+        System.out.println(MSN_PRINCIPAL_2);
+
+        int opcion = MenuUtils.preguntarNumeroUsuario(false, -1);
         switch (opcion) {
             case 1:
                 MenuPrincipal.iniciarJuego();
                 break;
-            case 2:
-                System.out.println("Gracias por jugar. ¡Hasta luego!");
+            case 0:
+                System.out.println(MSN_PRINCIPAL_3);
+                ConexionDatabase.closeConnection();
                 System.exit(0);
                 break;
             default:
-                System.out.println("Opción no válida. Por favor, selecciona una opción válida.");
+                System.out.println(MSN_INFORMACION_4);
                 mostrarOpciones();
         }
     }

@@ -1,50 +1,66 @@
 package co.com.sofkau.Dialogo.Menu;
 
 import co.com.sofkau.Modelos.Ronda;
-import co.com.sofkau.integration.database.Repositorios.RondaRepositorio;
+import co.com.sofkau.util.CommonOperacion.HistorialUtil;
+import co.com.sofkau.util.CommonOperacion.MenuUtils;
 import co.com.sofkau.util.CommonOperacion.RondaUtils;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import static co.com.sofkau.Dialogo.ConstantesDialogo.*;
 
 public class MenuContinuar {
 
 
     public static void continuarJuego(int numRonda) throws SQLException {
         Ronda ronda = new Ronda();
-
-        Scanner scanner = new Scanner(System.in);
-
         Ronda siguienteRonda = RondaUtils.buscarRondaPorNumRonda(numRonda, ronda.rondaHashMap);
 
-        System.out.println(siguienteRonda);
 
         if (siguienteRonda.getNumRonda() == numRonda) {
 
             String premioProximaRonda = siguienteRonda.getPremioConseguir();
 
-            System.out.println("El premio a conseguir en la próxima ronda es: " + premioProximaRonda);
+            System.out.println(MSN_UTIL_1);
+            System.out.println(MSN_UTIL_1);
 
-            // Dar opción al usuario de continuar o retirarse
-            System.out.println("¿Deseas continuar con el juego o retirarte con los premios acumulados?");
-            System.out.println("1. Continuar juego");
-            System.out.println("2. Retirarse con premios");
-            System.out.print("Ingrese el número de la opción deseada: ");
+            System.out.println(MSN_CONTINUAR_2 + premioProximaRonda);
 
-            int opcion = scanner.nextInt();
+            System.out.println(MSN_CONTINUAR_3);
+            System.out.println(MSN_CONTINUAR_4);
+            System.out.println(MSN_CONTINUAR_5);
+
+            System.out.println(MSN_UTIL_1);
+            System.out.println(MSN_UTIL_1);
+
+
+            int opcion = MenuUtils.preguntarNumeroUsuario(false, 0);
+
             if (opcion == 1) {
                 MenuRonda.presentarPregunta(premioProximaRonda);
 
             } else if (opcion == 2) {
-                MenuJuegoTerminado.jugadorRetirado(MenuPrincipal.historialActual.getPuntajeFinal());
+                RondaUtils.numRonda = 1;
+                MenuJuegoTerminado.jugadorRetirado(HistorialUtil.historialActual.getPuntajeFinal());
             } else {
-                System.out.println("Opción no válida. Por favor, ingrese 1 para continuar o 2 para retirarse.");
+                System.out.println(MSN_INFORMACION_4);
             }
-        } else {
-            System.out.println("¡Felicidades! Has completado todas las rondas del juego.");
-            // Aquí puedes hacer cualquier acción adicional que desees al completar todas las rondas
         }
+    }
+
+    private static int PreguntarNumero(boolean entradaValida, int opcion, Scanner scanner) {
+        while (!entradaValida) {
+            try {
+                System.out.print("Ingresa un número entero: ");
+                opcion = scanner.nextInt();
+                entradaValida = true; // Si no se lanza ninguna excepción, la entrada es válida
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Ingresa un número entero válido.");
+                scanner.next(); // Limpiar el búfer del escáner para evitar un bucle infinito
+            }
+        }
+        return opcion;
     }
 }

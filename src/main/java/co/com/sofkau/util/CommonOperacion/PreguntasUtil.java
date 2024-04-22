@@ -1,10 +1,8 @@
 package co.com.sofkau.util.CommonOperacion;
 
-import co.com.sofkau.Modelos.Jugador;
 import co.com.sofkau.Modelos.Preguntas;
-import co.com.sofkau.integration.database.ConexionDatabase;
 import co.com.sofkau.integration.database.Repositorios.PreguntasRepositorio;
-import co.com.sofkau.integration.database.Repositorios.RondaRepositorio;
+
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -12,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class PreguntasUtil {
 
-
+    public static HashMap<Integer, Preguntas> preguntas = PreguntasRepositorio.consultarPreguntas();
 
     public static Map<String, List<Preguntas>> filtrarPorDificultad(HashMap<Integer, Preguntas> preguntas, String dificultad) {
 

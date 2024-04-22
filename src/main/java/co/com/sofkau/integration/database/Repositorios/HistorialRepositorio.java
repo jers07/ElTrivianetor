@@ -7,8 +7,7 @@ public class HistorialRepositorio {
 
 
     public static void crearHistorial(Historial historial) {
-        String query = String.format("INSERT INTO historial (idHistorial, jugador_idJugador, nombreJugador, puntajeFinal, RazonTerminoJuego) VALUES (%d, %d, '%s', %d, '%s')",
-                historial.getIdHistorial(),
+        String query = String.format("INSERT INTO historial (jugador_idJugador, nombreJugador, puntajeFinal, RazonTerminoJuego) VALUES (%d, '%s', %d, '%s')",
                 historial.getJugadorIdJugador(),
                 historial.getNombreJugador(),
                 historial.getPuntajeFinal(),
